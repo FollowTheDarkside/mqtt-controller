@@ -5,6 +5,28 @@ This is a simple app for sending mouse coordinate messages using MQTT on the bro
 
 -> [Demo Page](https://followthedarkside.github.io/mqtt-controller/)
 
+## Usage
+
+### Project setup
+```
+npm install
+```
+
+### Development Server
+```
+npm run dev
+```
+
+### Production
+```
+npm run build
+```
+
+### Locally preview production build
+```
+npm run preview
+```
+
 ## License
 MIT.
 
