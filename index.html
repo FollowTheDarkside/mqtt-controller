@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- <link rel="icon" type="image/svg+xml" href="/vite.svg" /> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MQTT Controller</title>
+    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h1>MQTT Controller</h1>
+      <div id="input-sec">
+        <canvas id="input-canvas">
+          <p>Add suitable fallback here.</p>
+        </canvas>
+      </div>
+      <div id="info-sec">
+        <p>
+          <button id="btn-pub" type="button">PUB</button>
+        </p>
+        <p>
+          <label>Topic: <input id="topic-text-box" type="text" size="20" value="mqtt/controller"></label>
+        </p>
+        <p>
+          <label>Reduce pub freq: <input type="range" min="1" max="9" value="3" aria-label="reduce publishing frequency" /></label> <span id="freq-text">3</span>
+        </p>
+      </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
