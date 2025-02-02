@@ -2,6 +2,7 @@
 // import * as mqtt from 'https://unpkg.com/mqtt/dist/mqtt.min.js';
 import './style.scss'
 import {MqttManager} from './mqtt'
+import {dist, degToRad, normalizePos, normalizeDistance} from './util'
 
 // for MQTT
 const protocol = "wss"
