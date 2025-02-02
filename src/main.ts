@@ -26,9 +26,12 @@ const pointerColor = "rgb(240,125,50)";
 // Mouse Info
 let curX: number;
 let curY: number;
-let nx: number;
-let ny: number;
 let mousePressed = false;
+
+let cur2X: number;
+let cur2Y: number;
+let distance: number;
+let twoTouched = false;
 
 window.addEventListener('load', init);
 
@@ -67,6 +70,10 @@ function initCanvasInput(){
   curX = canvas.width / 2;
   curY = canvas.height / 2;
 
+  cur2X = canvas.width / 2;
+  cur2Y = canvas.height / 2;
+  distance = 0;
+
   drawIndex = 0;
 
   freqPicker.oninput = () => {
@@ -94,33 +101,30 @@ function initCanvasInput(){
     curX = e.touches[0].pageX - clientRect.left;
     curY = e.touches[0].pageY - clientRect.top;
     // console.log("pos:", curX, curY)
+
+    if (e.touches.length == 2 ) {
+      cur2X = e.touches[1].pageX - clientRect.left;
+      cur2Y = e.touches[1].pageY - clientRect.top;
+      distance = dist(curX, curY, cur2X, cur2Y);
+    }
   };
   canvas.ontouchstart = (e) => {
     e.preventDefault();
     mousePressed = true;
+    if (e.touches.length == 2 ) {
+      twoTouched = true;
+    }
   };
   canvas.ontouchend = (e) => {
     e.preventDefault();
     mousePressed = false;
+    twoTouched = false;
   };
 
   window.onresize = () => {
     console.log("resized...");
     resizeCanvas();
   }
-}
-
-// Convert degrees to radians
-function degToRad(degrees: number) {
-  return (degrees * Math.PI) / 180;
-}
-
-// Convert the coordinates to fit between 0 and 1
-function normalizePos(x: number, y: number){
-  // let clientRect = canvas.getBoundingClientRect();
-  nx = x / canvas.clientWidth;
-  ny = y / canvas.clientHeight;
-  // console.log("nPos:", nx, ny);
 }
 
 function resizeCanvas(){
@@ -147,6 +151,25 @@ function draw() {
       degToRad(360),
       false,
     );
+    if (twoTouched) {
+      ctx.arc(
+        cur2X,
+        cur2Y,
+        15,
+        degToRad(0),
+        degToRad(360),
+        false,
+      );
+    } else {
+      ctx.arc(
+        cur2X,
+        cur2Y,
+        0,
+        degToRad(0),
+        degToRad(360),
+        false,
+      );
+    }
     ctx.fill();
 
     drawIndex += 1;
@@ -162,8 +185,10 @@ function draw() {
 
 function createMessage(){
   let message: string = ""
-  normalizePos(curX, curY);
-  message = JSON.stringify({ x: nx, y: ny })
+  const nPos = normalizePos(curX, curY, canvas);
+  const nPos2 = normalizePos(cur2X, cur2Y, canvas);
+  const nDist = normalizeDistance(distance, canvas.getBoundingClientRect());
+  message = JSON.stringify({ x: nPos.x, y: nPos.y, x2: nPos2.x, y2: nPos2.y, dist: nDist})
   // console.log("msg:", message)
   return message;
 }
