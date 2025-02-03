@@ -7,6 +7,11 @@ This is a simple app for sending mouse coordinate messages using MQTT on the bro
 
 -> [Demo Page](https://followthedarkside.github.io/mqtt-controller/)
 
+## Examples
+
+- [MQTT Controller with TouchDesigner](https://youtu.be/rElVhKXpc8s?si=l-iwja_axih1yFua)
+- [Visualize Seven Flavors in Life](https://youtu.be/0EjWm4Xyooo?si=BAbRcifEsAkGDJrh)
+
 ## Usage
 
 ### Project setup
